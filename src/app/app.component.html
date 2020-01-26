@@ -1,67 +1,70 @@
-<svg
-  width="1000"
-  height="1000"
-  viewBox="-250 -50 1000 1000"
->
-  <line
-    x1="-100%"
-    y1="0"
-    x2="100%"
-    y2="0"
-    stroke="lightgray"
-    stroke-width="1"
-  />
-  <line
-    x1="0"
-    y1="-100%"
-    x2="0"
-    y2="100%"
-    stroke="lightgray"
-    stroke-width="1"
-  />
-
-  <g *ngFor="let gear of gears; let i = index">
-    <circle
-      [attr.cx]="gear.origin.x"
-      [attr.cy]="gear.origin.y"
-      [attr.r]="gear.radius"
-      stroke="black"
-      stroke-width="0.5"
-      fill="lightgray"
-      opacity="0.7"
-    />
+<div #svg>
+  <svg
+    width="1000"
+    height="1000"
+    viewBox="-250 -50 1000 1000"
+  >
     <line
-      [attr.x1]="gear.hand.a.x"
-      [attr.y1]="gear.hand.a.y"
-      [attr.x2]="gear.hand.b.x"
-      [attr.y2]="gear.hand.b.y"
-      [attr.transform]="getRotation(gear)"
-      stroke="red"
+      x1="-100%"
+      y1="0"
+      x2="100%"
+      y2="0"
+      stroke="lightgray"
       stroke-width="1"
     />
+    <line
+      x1="0"
+      y1="-100%"
+      x2="0"
+      y2="100%"
+      stroke="lightgray"
+      stroke-width="1"
+    />
+
+    <g *ngFor="let gear of gears; let i = index">
+      <circle
+        [attr.cx]="gear.origin.x"
+        [attr.cy]="gear.origin.y"
+        [attr.r]="gear.radius"
+        stroke="black"
+        stroke-width="0.5"
+        fill="lightgray"
+        opacity="0.7"
+      />
+      <line
+        [attr.x1]="gear.hand.a.x"
+        [attr.y1]="gear.hand.a.y"
+        [attr.x2]="gear.hand.b.x"
+        [attr.y2]="gear.hand.b.y"
+        [attr.transform]="getRotation(gear)"
+        stroke="red"
+        stroke-width="1"
+      />
+      <text
+        [attr.x]="gear.labelOrigin.x"
+        [attr.y]="gear.labelOrigin.y"
+        style="font-family:sans-serif;font-size:14px"
+        fill="black"
+      >
+      <tspan [attr.x]="gear.radius + gear.radius" dy="-5">
+          d: {{ gear.diameter }} r: {{ gear.currentSpeed | number:'1.0-6' }} i: {{ i }}
+      </tspan>
+    <tspan [attr.x]="gear.radius + gear.radius" dy="1.2em" *ngIf="gear.parent">1:{{ gear.parent.radius / gear.radius | number }}</tspan>
+
+      </text>
+    </g>
+
     <text
-      [attr.x]="gear.labelOrigin.x"
-      [attr.y]="gear.labelOrigin.y"
-      style="font-family:sans-serif;font-size:14px"
-      fill="black"
+      x="0"
+      y="850"
     >
-    <tspan [attr.x]="gear.radius + gear.radius" dy="-5">
-        d: {{ gear.diameter }} r: {{ gear.currentSpeed | number:'1.0-6' }} i: {{ i }}
-    </tspan>
-	<tspan [attr.x]="gear.radius + gear.radius" dy="1.2em" *ngIf="gear.parent">1:{{ gear.parent.radius / gear.radius | number }}</tspan>
-      
+    s: {{ gears[1].currentRotation / 360 | number }}
+    m: {{ gears[2].currentRotation / 360 | number }}
     </text>
-  </g>
 
-  <text
-    x="0"
-    y="850"
-  >
-  s: {{ gears[1].currentRotation / 360 | number }}
-  m: {{ gears[2].currentRotation / 360 | number }}
-  </text>
-
-</svg>
+  </svg>
+</div>
 
 <input [(ngModel)]="initialSpeed">
 <button (click)="toggleSimulation()">Simulate</button>
+<button (click)="export()">Export</button>
