@@ -30,6 +30,7 @@ export class AppComponent implements OnInit {
       Gear.fixedGear(handLocation, 40), // second
       Gear.fixedGear(handLocation, 30), // minute
       Gear.fixedGear(handLocation, 40), // hour
+
     ];
 
     // translation
@@ -46,26 +47,30 @@ export class AppComponent implements OnInit {
     this.gears.push(Gear.connectionGear(170, this.gears[13], Angle.fromDegree(-22)))
 
     // bridge second
-    this.gears.push(Gear.connectionGear(220, this.gears[secondHandIndex], Angle.fromDegree(65)))
-    this.gears.push(Gear.connectionGear(220, this.gears[15], Angle.fromDegree(10)))
-    this.gears.push(Gear.connectionGear(140, this.gears[16], Angle.fromDegree(0)))
+    this.gears.push(Gear.connectionGear(220, this.gears[secondHandIndex], Angle.fromDegree(75)))
+    this.gears.push(Gear.connectionGear(220, this.gears[15], Angle.fromDegree(25)))
+    this.gears.push(Gear.connectionGear(180, this.gears[16], Angle.fromDegree(-15)))
     this.gears.push(Gear.constrainedGear(this.gears[17], this.gears[1], 120))
 
     // bridge minute
     this.gears.push(Gear.connectionGear(200, this.gears[minuteHandIndex], Angle.fromDegree(-115)))
-    this.gears.push(Gear.connectionGear(100, this.gears[19], Angle.fromDegree(-10)))
-    this.gears.push(Gear.connectionGear(20, this.gears[20], Angle.fromDegree(0)))
-    this.gears.push(Gear.connectionGear(100, this.gears[21], Angle.fromDegree(0)))
-    this.gears.push(Gear.constrainedGear(this.gears[22], this.gears[2], 140))
+    this.gears.push(Gear.connectionGear(100, this.gears[19], Angle.fromDegree(-5)))
+    this.gears.push(Gear.connectionGear(30, this.gears[20], Angle.fromDegree(30)))
+    this.gears.push(Gear.connectionGear(100, this.gears[21], Angle.fromDegree(15)))
+    this.gears.push(Gear.constrainedGear(this.gears[22], this.gears[2], 110))
 
     // bridge hour
     this.gears.push(Gear.constrainedGear(this.gears[hourHandIndex], this.gears[3], 60))
 
-    // additional engines
-    this.gears.push(Gear.connectionGear(20, this.gears[4], Angle.fromDegree(-90)))
-    this.gears.push(Gear.connectionGear(20, this.gears[14], Angle.fromDegree(-90)))
+    this.gears.push(Gear.fixedGear({ x: 110, y: 110 }, 20)) // engine normal
 
-    console.log('gears added', this.gears.length)
+    this.gears.push(Gear.connectionGear(70, this.gears[14], Angle.fromDegree(-90)))
+    this.gears.push(Gear.connectionGear(20, this.gears[26], Angle.fromDegree(-90))) // engine sync
+
+    this.gears.push(Gear.fixedGear({ x: 218, y: 325.87509568318256 }, 20))
+    this.gears.push(Gear.connectionGear(170, this.gears[28], Angle.fromDegree(0)))
+    this.gears.push(Gear.connectionGear(170, this.gears[28], Angle.fromDegree(180)))
+
   }
 
   buildSmallClockwork() {
